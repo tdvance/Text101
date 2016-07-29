@@ -165,7 +165,7 @@ public class TextController : MonoBehaviour
         {
            
             text.text += "\n\nThere is a Rocket Propelled Grenade launcher--someone has some heavy artillery!  " +
-                    "<color=lime>Press G to take RGP.</color>\n";
+                    "<color=lime>Press G to take RPG.</color>\n";
             
             if (Input.GetKeyDown("g"))
             {
@@ -406,7 +406,10 @@ public class TextController : MonoBehaviour
                 Stub();
                 break;
         }
-        text.text = "<color=aqua>" + AdditionalText + "</color>\n\n" + text.text;
+        if (AdditionalText.Length > 2)
+        {
+            text.text = "<color=aqua>" + AdditionalText + "</color>\n\n" + text.text;
+        }
         if (DukeHealth > 0 && won==0)
         {
             HandlePistolState();
@@ -441,7 +444,7 @@ public class TextController : MonoBehaviour
     #region State Handler Region
     void ApartmentRoom()
     {
-        text.text = "<color=yellow>Duke is in the bedroom of somebody's dilapidated apartment.  " +
+        text.text = "<color=yellow>Duke is in the bedroom of somebody's dilapidated apartment.</color>  " +
             "There is a TV with a busted screen in the corner.  There are stains on the ratty carpet. There are pinups on the walls.</color>  " +
             "There is a window to the outside.  Another room is to the right.  " +
             "<color=lime>Press R to enter the room on the right.  Press X to exit through the window.</color>\n";
@@ -476,8 +479,8 @@ public class TextController : MonoBehaviour
     {
         text.text = "<color=yellow>Duke is in the living room of somebody's dilapidated apartment.  " +
             "There is a ratty mattress on the floor, and in fact, Duke thinks he might have heard " +
-            "some squeaking sounds.  There are pinups on the walls.  The carpet is worn to the oily, dingy concrete floor in places</color>" +
-            "Another room is to the left.  There is a window to the street.  " +
+            "some squeaking sounds and pattering of rat-sized feet.  There are pinups on the walls.  The carpet is worn to the oily, dingy concrete floor in places.</color>  " +
+            "Another room is to the left.  There is a window to the street.  </color>" +
             "<color=lime>Press L to enter the room on the left.  Press X to exit through the window.</color>\n";
 
         if (Input.GetKeyDown("l"))
@@ -543,9 +546,9 @@ public class TextController : MonoBehaviour
     {
         text.text = "<color=yellow>Duke is standing inside of an X-rated theater that in a state of disrepair.  "
             + "There are booths against the wall and explicit posters on another wall.</color>  " + 
-            "There is a door with a gaping hole out to the street.  Press H to crawl through the hole.</color>\n";
+            "<color=lime>There is a door with a gaping hole out to the street.  Press X to exit through the hole.</color>\n";
 
-        if (Input.GetKeyDown("h"))
+        if (Input.GetKeyDown("x"))
         {
             Tick();
             DukeLocation = States.theater_front;
@@ -554,6 +557,9 @@ public class TextController : MonoBehaviour
         if(Lizard1Health==0 && Lizard2Health == 0)
         {
             DukeLocation = States.finished;
+        }else
+        {
+            text.text = "<color=teal>Duke muses, \"Hmm...I have some unfinished business</color>\"\n\n" + text.text;
         }
     }
 
